@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CustomersRouteImport } from './routes/customers'
 import { Route as ProductivityRouteImport } from './routes/productivity'
+import { Route as ResponsibleAiRouteImport } from './routes/responsible-ai'
 import { Route as ScheduleRouteImport } from './routes/schedule'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as TasksRouteImport } from './routes/tasks'
@@ -29,6 +30,11 @@ const CustomersRoute = CustomersRouteImport.update({
 const ProductivityRoute = ProductivityRouteImport.update({
   id: '/productivity',
   path: '/productivity',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResponsibleAiRoute = ResponsibleAiRouteImport.update({
+  id: '/responsible-ai',
+  path: '/responsible-ai',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ScheduleRoute = ScheduleRouteImport.update({
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/customers': typeof CustomersRoute
   '/productivity': typeof ProductivityRoute
+  '/responsible-ai': typeof ResponsibleAiRoute
   '/schedule': typeof ScheduleRoute
   '/services': typeof ServicesRoute
   '/tasks': typeof TasksRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/customers': typeof CustomersRoute
   '/productivity': typeof ProductivityRoute
+  '/responsible-ai': typeof ResponsibleAiRoute
   '/schedule': typeof ScheduleRoute
   '/services': typeof ServicesRoute
   '/tasks': typeof TasksRoute
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/customers': typeof CustomersRoute
   '/productivity': typeof ProductivityRoute
+  '/responsible-ai': typeof ResponsibleAiRoute
   '/schedule': typeof ScheduleRoute
   '/services': typeof ServicesRoute
   '/tasks': typeof TasksRoute
@@ -75,15 +84,28 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/customers' | '/productivity' | '/schedule' | '/services' | '/tasks'
+    | '/'
+    | '/customers'
+    | '/productivity'
+    | '/responsible-ai'
+    | '/schedule'
+    | '/services'
+    | '/tasks'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/customers' | '/productivity' | '/schedule' | '/services' | '/tasks'
+    | '/'
+    | '/customers'
+    | '/productivity'
+    | '/responsible-ai'
+    | '/schedule'
+    | '/services'
+    | '/tasks'
   id:
     | '__root__'
     | '/'
     | '/customers'
     | '/productivity'
+    | '/responsible-ai'
     | '/schedule'
     | '/services'
     | '/tasks'
@@ -93,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CustomersRoute: typeof CustomersRoute
   ProductivityRoute: typeof ProductivityRoute
+  ResponsibleAiRoute: typeof ResponsibleAiRoute
   ScheduleRoute: typeof ScheduleRoute
   ServicesRoute: typeof ServicesRoute
   TasksRoute: typeof TasksRoute
@@ -119,6 +142,13 @@ declare module '@tanstack/react-router' {
       path: '/productivity'
       fullPath: '/productivity'
       preLoaderRoute: typeof ProductivityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/responsible-ai': {
+      id: '/responsible-ai'
+      path: '/responsible-ai'
+      fullPath: '/responsible-ai'
+      preLoaderRoute: typeof ResponsibleAiRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/schedule': {
@@ -149,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CustomersRoute: CustomersRoute,
   ProductivityRoute: ProductivityRoute,
+  ResponsibleAiRoute: ResponsibleAiRoute,
   ScheduleRoute: ScheduleRoute,
   ServicesRoute: ServicesRoute,
   TasksRoute: TasksRoute,
