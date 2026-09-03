@@ -38,7 +38,7 @@ export const Route = createFileRoute("/tasks")({
 const emptyTask: Omit<Task, "id"> = {
   name: "",
   customer: "",
-  cleaner: CLEANERS[0],
+  cleaner: CLEANERS[0] as string,
   service: "",
   location: "",
   date: new Date().toISOString().slice(0, 10),
