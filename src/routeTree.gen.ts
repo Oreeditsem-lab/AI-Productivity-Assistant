@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CustomersRouteImport } from './routes/customers'
+import { Route as ProductivityRouteImport } from './routes/productivity'
 import { Route as ScheduleRouteImport } from './routes/schedule'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as TasksRouteImport } from './routes/tasks'
@@ -23,6 +24,11 @@ const IndexRoute = IndexRouteImport.update({
 const CustomersRoute = CustomersRouteImport.update({
   id: '/customers',
   path: '/customers',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProductivityRoute = ProductivityRouteImport.update({
+  id: '/productivity',
+  path: '/productivity',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ScheduleRoute = ScheduleRouteImport.update({
@@ -44,6 +50,7 @@ const TasksRoute = TasksRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/customers': typeof CustomersRoute
+  '/productivity': typeof ProductivityRoute
   '/schedule': typeof ScheduleRoute
   '/services': typeof ServicesRoute
   '/tasks': typeof TasksRoute
@@ -51,6 +58,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/customers': typeof CustomersRoute
+  '/productivity': typeof ProductivityRoute
   '/schedule': typeof ScheduleRoute
   '/services': typeof ServicesRoute
   '/tasks': typeof TasksRoute
@@ -59,21 +67,32 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/customers': typeof CustomersRoute
+  '/productivity': typeof ProductivityRoute
   '/schedule': typeof ScheduleRoute
   '/services': typeof ServicesRoute
   '/tasks': typeof TasksRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/customers' | '/schedule' | '/services' | '/tasks'
+  fullPaths:
+    '/' | '/customers' | '/productivity' | '/schedule' | '/services' | '/tasks'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/customers' | '/schedule' | '/services' | '/tasks'
-  id: '__root__' | '/' | '/customers' | '/schedule' | '/services' | '/tasks'
+  to:
+    '/' | '/customers' | '/productivity' | '/schedule' | '/services' | '/tasks'
+  id:
+    | '__root__'
+    | '/'
+    | '/customers'
+    | '/productivity'
+    | '/schedule'
+    | '/services'
+    | '/tasks'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CustomersRoute: typeof CustomersRoute
+  ProductivityRoute: typeof ProductivityRoute
   ScheduleRoute: typeof ScheduleRoute
   ServicesRoute: typeof ServicesRoute
   TasksRoute: typeof TasksRoute
@@ -93,6 +112,13 @@ declare module '@tanstack/react-router' {
       path: '/customers'
       fullPath: '/customers'
       preLoaderRoute: typeof CustomersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/productivity': {
+      id: '/productivity'
+      path: '/productivity'
+      fullPath: '/productivity'
+      preLoaderRoute: typeof ProductivityRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/schedule': {
@@ -122,6 +148,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CustomersRoute: CustomersRoute,
+  ProductivityRoute: ProductivityRoute,
   ScheduleRoute: ScheduleRoute,
   ServicesRoute: ServicesRoute,
   TasksRoute: TasksRoute,
