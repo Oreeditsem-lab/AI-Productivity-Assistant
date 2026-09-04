@@ -78,7 +78,7 @@ function MessageGenerator() {
       const res = await generateCustomerMessage({ data: form });
       setResult(res.text);
     } catch (e) {
-      setError(e instanceof Error ? e.message : undefined);
+      setError(e instanceof Error ? e.message : null);
     } finally {
       setLoading(false);
     }
