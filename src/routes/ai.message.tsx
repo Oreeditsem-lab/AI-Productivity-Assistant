@@ -32,7 +32,7 @@ export const Route = createFileRoute("/ai/message")({
       },
     ],
   }),
-  component: MessageGenerator;
+  component: MessageGenerator,
 });
 
 const PURPOSES = [
@@ -78,7 +78,7 @@ function MessageGenerator() {
       const res = await generateCustomerMessage({ data: form });
       setResult(res.text);
     } catch (e) {
-      setError(e instanceof Error ? e.message : undefined);
+      setError(e instanceof Error ? e.message : null);
     } finally {
       setLoading(false);
     }
@@ -194,7 +194,7 @@ function MessageGenerator() {
 
         <div className="space-y-3">
           {loading && <AiLoading />}
-          {error !== null && !loading && <AiError message={error} onRetry={() => void run()} />}
+          {error !== null && !loading && <AiError message={error ?? undefined} onRetry={() => void run()} />}
           {!loading && result && (
             <div className="glass rounded-[14px] p-4">
               <p className="mb-3 text-[11px] font-medium uppercase tracking-wide text-accent">
