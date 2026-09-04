@@ -32,7 +32,7 @@ export const Route = createFileRoute("/ai/message")({
       },
     ],
   }),
-  component: MessageGenerator;
+  component: MessageGenerator,
 });
 
 const PURPOSES = [
