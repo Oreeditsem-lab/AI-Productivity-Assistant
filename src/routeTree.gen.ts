@@ -17,6 +17,7 @@ import { Route as ScheduleRouteImport } from './routes/schedule'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as TasksRouteImport } from './routes/tasks'
 import { Route as AiMessageRouteImport } from './routes/ai.message'
+import { Route as AiScheduleRouteImport } from './routes/ai.schedule'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -58,6 +59,11 @@ const AiMessageRoute = AiMessageRouteImport.update({
   path: '/ai/message',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AiScheduleRoute = AiScheduleRouteImport.update({
+  id: '/ai/schedule',
+  path: '/ai/schedule',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -68,6 +74,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/tasks': typeof TasksRoute
   '/ai/message': typeof AiMessageRoute
+  '/ai/schedule': typeof AiScheduleRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -78,6 +85,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/tasks': typeof TasksRoute
   '/ai/message': typeof AiMessageRoute
+  '/ai/schedule': typeof AiScheduleRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -89,6 +97,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/tasks': typeof TasksRoute
   '/ai/message': typeof AiMessageRoute
+  '/ai/schedule': typeof AiScheduleRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -101,6 +110,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/tasks'
     | '/ai/message'
+    | '/ai/schedule'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -111,6 +121,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/tasks'
     | '/ai/message'
+    | '/ai/schedule'
   id:
     | '__root__'
     | '/'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/tasks'
     | '/ai/message'
+    | '/ai/schedule'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -132,6 +144,7 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   TasksRoute: typeof TasksRoute
   AiMessageRoute: typeof AiMessageRoute
+  AiScheduleRoute: typeof AiScheduleRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AiMessageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/ai/schedule': {
+      id: '/ai/schedule'
+      path: '/ai/schedule'
+      fullPath: '/ai/schedule'
+      preLoaderRoute: typeof AiScheduleRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -204,6 +224,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   TasksRoute: TasksRoute,
   AiMessageRoute: AiMessageRoute,
+  AiScheduleRoute: AiScheduleRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
