@@ -194,7 +194,7 @@ function MessageGenerator() {
 
         <div className="space-y-3">
           {loading && <AiLoading />}
-          {error !== null && !loading && <AiError message={error} onRetry={() => void run()} />}
+          {error !== null && !loading && <AiError message={error ?? undefined} onRetry={() => void run()} />}
           {!loading && result && (
             <div className="glass rounded-[14px] p-4">
               <p className="mb-3 text-[11px] font-medium uppercase tracking-wide text-accent">
